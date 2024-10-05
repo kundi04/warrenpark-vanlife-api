@@ -1,39 +1,30 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const userRoutes = require('./src/routes/userRoutes');
-const vanRoutes = require('./src/routes/vanRoutes');
-const bookingRoutes = require('./src/routes/bookingRoutes');
-const paymentRoutes = require('./src/routes/paymentRoutes');
-const reviewRoutes = require('./src/routes/reviewRoutes');
-const errorMiddleware = require('./src/middlewares/errorMiddleware');
-dotenv.config();
+const Van = require('./src/models/vanModel.js')
 const app = express();
+app.use = (express.json());
 
-// Database connection
-const mongoose = require('mongoose');
+app.get('/', (req, res) => {
+    res.send("hello from node api server")
+});
 
-const uri = 'mongodb+srv://muzhonakundai:Eukmal04@cluster0.k57c9.mongodb.net/'; 
+app.post('/api/Vans', async (req, res) => {
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('MongoDB connected successfully');
-  })
-  .catch((err) => {
-    console.error('MongoDB connection error:', err);
-  });
+    try {
+        const van = await Van.create(req.body);
+        res.status(200).json(van)
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
-
-// Define routes
-app.use('/users', userRoutes);
-app.use('/vans', vanRoutes);
-app.use('/bookings', bookingRoutes);
-app.use('/payments', paymentRoutes);
-app.use('/reviews', reviewRoutes);
-// Error handling middleware
-app.use(errorMiddleware);
-
-
-const PORT = process.env.PORT || 5002;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-module.exports = app;
+mongoose.connect('mongodb+srv://adventshumba0829:vanlife123@vanlife.y5nfp.mongodb.net/')
+    .then(() => {
+        console.log('Connected to database');
+        app.listen(5000, () => {
+            console.log('server is running on port 5000');
+        })
+    })
+    .catch(() => {
+        console.log('Connection Failed');
+    }); 
