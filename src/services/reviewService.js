@@ -1,23 +1,17 @@
-//service/reviewServices.js
+const Review = require('../models/Review');
 
-const Review = require ('../models/reviewModel.js'); //model for reviews
+// Create a new review
+const createReview = async (reviewData) => {
+  const newReview = new Review(reviewData);
+  return await newReview.save();
+};
 
-const createReview = async (userId, createReview, getReviewForHost, hostId) => {
-
-//logic for creating a review
-
-const review = new Review ({
-    userId,
-    hostId,
-    createReview,
-    getReviewForHost,
-});
-
-await review.save();
-return review;
-
+// Get all reviews for a host
+const getReviewsForHost = async (hostId) => {
+  return await Review.find({ hostId });
 };
 
 module.exports = {
-    createReview,
+  createReview,
+  getReviewsForHost,
 };

@@ -23,7 +23,7 @@ router.get('/:id' , async (req,res) =>{
         const bookingId = req.params.id;
         const bookings = await bookingService.getBookingById(bookingId);
         
-        if (user){
+        if (review){
             res.status(200).json (booking);
         } 
         else {

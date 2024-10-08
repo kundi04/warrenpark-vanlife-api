@@ -1,29 +1,43 @@
-//service/bookingServices.js
+const Booking = require('../models/Booking');
 
-const Booking = require ('../models/bookingModel.js'); //model for booking
+// Create a new booking
+const createBooking = async (userId, hostId, vanId, startDate, endDate) => {
+  const newBooking = new Booking({
+    userId,
+    hostId,
+    vanId,
+    startDate,
+    endDate,
+    pendingApproval: true,
+    isApproved: false,
+  });
+  return await newBooking.save();
+};
 
-const createBooking = async (createBooking, updateBooking, getBookingsForUser, getBookingsForHost, deleteBooking) => {
+// Update booking info
+const updateBooking = async (bookingId, bookingData) => {
+  return await Booking.findByIdAndUpdate(bookingId, bookingData, { new: true });
+};
 
-const pendingApproval = true;
-const isApproved = fasle;
+// Get all bookings by a user
+const getBookingsForUser  = async (userId) => {
+  return await Booking.find({ userId });
+};
 
-//logic for creating a booking
+// Get all bookings for a host
+const getBookingsForHost = async (hostId) => {
+  return await Booking.find({ hostId });
+};
 
-const booking = new Booking ({
-    createBooking, 
-    updateBooking, 
-    getBookingsForUser, 
-    getBookingsForHost, 
-    deleteBooking,
-    pendingApproval,
-    isApproved,
-});
-
-await booking.save();
-return booking;
-
+// Delete a booking by ID
+const deleteBooking = async (bookingId) => {
+  return await Booking.findByIdAndDelete(bookingId);
 };
 
 module.exports = {
-    createBooking,
-};  
+  createBooking,
+  updateBooking,
+  getBookingsForUser ,
+  getBookingsForHost,
+  deleteBooking,
+};

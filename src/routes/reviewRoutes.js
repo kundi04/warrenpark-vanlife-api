@@ -22,7 +22,7 @@ router.get('/:id' , async (req,res) =>{
         const reviewId = req.params.id;
         const reviews = await reviewService.getReviewById(reviewId);
         
-        if (user){
+        if (review){
             res.status(200).json (review);
         } 
         else {

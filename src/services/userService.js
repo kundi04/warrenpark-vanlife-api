@@ -1,21 +1,17 @@
-//service/UserServices.js
+const User = require('../models/User');
 
-const User = require ('../models/userModel.js'); //model for Users
+// Create a new user
+const createUser = async (userData) => {
+  const newUser = new User(userData);
+  return await newUser.save();
+};
 
-const createBooking = async (createUser,updateUser) => {
-
-//logic for creating a user
-
-const user = new User ({
-    createUser,
-    updateUser,
-});
-
-await user.save();
-return user;
-
+// Update a user profile
+const updateUser = async (userId, userData) => {
+  return await User.findByIdAndUpdate(userId, userData, { new: true });
 };
 
 module.exports = {
-    createUser,
+  createUser,
+  updateUser,
 };

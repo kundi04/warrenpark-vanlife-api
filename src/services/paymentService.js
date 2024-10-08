@@ -1,22 +1,17 @@
-//service/paymentServices.js
+const Payment = require('../models/Payment');
 
-const Payment = require ('../models/paymentModel.js'); //model for payment
+// Create a new payment
+const createPayment = async (paymentData) => {
+  const newPayment = new Payment(paymentData);
+  return await newPayment.save();
+};
 
-const createPayment = async (userId, createPayment, getPayment) => {
-
-//logic for creating a payment
-
-const payment = new Payment ({
-    userId,
-    createPayment,
-    getPayment,
-});
-
-await payment.save();
-return payment;
-
+// Get a payment by ID
+const getPayment = async (paymentId) => {
+  return await Payment.findById(paymentId);
 };
 
 module.exports = {
-    createPayment,
+  createPayment,
+  getPayment,
 };
