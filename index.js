@@ -10,7 +10,7 @@ app.use(express.json())
 
 
 app.get('/', (req, res) => {
-    res.send("hello from nod api pokay ameno")
+    res.send("hello from node api")
 })
 
 

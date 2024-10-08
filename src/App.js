@@ -18,7 +18,7 @@ app.post('/api/Vans', async (req, res) => {
     }
 });
 
-mongoose.connect('mongodb+srv://adventshumba0829:vanlife123@vanlife.y5nfp.mongodb.net/')
+mongoose.connect('mongodb+srv://muzhonakundai:Eukmal04@cluster0.k57c9.mongodb.net/')
     .then(() => {
         console.log('Connected to database');
         app.listen(5000, () => {
